@@ -7,7 +7,7 @@
 docker build -t budget-manager-app:slim .
 
 # Run the Docker container, mapping host port 5000 to container port 5000
-docker run -p 5000:5000 budget-manager-app
+docker run -p 5000:5000 budget-manager-app:slim
 ```
 
 ## References
