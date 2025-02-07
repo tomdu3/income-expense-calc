@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{% block title %}Budget Manager{% endblock title %}</title>
+    <title>{% block title %}{% endblock title %} - Budget Manager</title>
 
     <!-- CSS File -->
     <link
@@ -48,5 +48,7 @@
       integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
       crossorigin="anonymous"
     ></script>
+    <!--Custom JS -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
   </body>
 </html>
