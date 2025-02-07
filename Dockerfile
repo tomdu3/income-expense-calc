@@ -1,5 +1,5 @@
-# Use the official Python 3.11 image
-FROM python:3.11
+# Use the official lightweight Python 3.11-slim image
+FROM python:3.11-slim
 
 # Set the working directory
 WORKDIR /app
@@ -16,3 +16,4 @@ EXPOSE 5000
 
 # Run the application
 CMD ["python3", "main.py"]
+
