@@ -10,7 +10,7 @@ def login():
 
 @auth.route("/logout")
 def logout():
-    return "<p>logout</p>"
+    return "<p>logout</p>"  # TODO - this will be replaced with a logout function
 
 
 @auth.route("/register")
