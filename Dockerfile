@@ -1,3 +1,4 @@
+# Use the official lightweight Python 3.11-slim image
 FROM python:3.11-slim
 
 # Set the working directory
@@ -12,9 +13,6 @@ COPY . .
 
 # Expose the port the app runs on
 EXPOSE 5000
-
-# Make sure the container listens on all network interfaces
-ENV HOST=0.0.0.0
 
 # Run the application
 CMD ["python3", "main.py"]
