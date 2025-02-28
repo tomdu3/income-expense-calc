@@ -1,5 +1,7 @@
 from . import db
 from flask_login import UserMixin
+from sqlalchemy.sql import func
+
 
 
 class User(db.Model, UserMixin):
@@ -12,6 +14,15 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150))
     last_name = db.Column(db.String(150))
+    created_at = db.Column(db.DateTime(timezone=True), default=func.now)
+    updated_at = db.Column(db.DateTime(timezone=True), onupdate=func.now)
+    transactions = db.relationship("Transaction")
+
+    def __init__(self, email, password, first_name, last_name):
+        self.email = email
+        self.password = password
+        self.first_name = first_name
+        self.last_name = last_name
 
 
 class Transaction(db.Model):
@@ -29,20 +40,23 @@ class Transaction(db.Model):
     transaction_type = db.Column(db.Enum(*transactions, name="transaction_types"))
     category = db.Column(db.Integer, db.ForeignKey("category.id"))
     status = db.Column(db.String(150))
+    created_at = db.Column(db.DateTime(timezone=True), default=func.now())
+    updated_at = db.Column(db.DateTime(timezone=True), onupdate=func.now())
 
-    def __init__(
-        self, user_id, amount, date, description, transaction_type, category, status
-    ):
-        self.user_id = user_id
-        self.amount = amount
-        self.date = date
-        self.description = description
-        self.transaction_type = transaction_type
-        self.category = category
-        self.status = status
 
-    def __repr__(self):
-        return "<Transaction {}>".format(self.id)
+    # def __init__(
+    #     self, user_id, amount, date, description, transaction_type, category, status
+    # ):
+    #     self.user_id = user_id
+    #     self.amount = amount
+    #     self.date = date
+    #     self.description = description
+    #     self.transaction_type = transaction_type
+    #     self.category = category
+    #     self.status = status
+
+    # def __repr__(self):
+    #     return "<Transaction {}>".format(self.id)
 
 
 class Category(db.Model):
