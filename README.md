@@ -20,6 +20,8 @@ docker run -p 5000:5000 budget-manager-app:slim
 
 - [Rest APIs with Flask and Python](https://rest-apis-flask.teclado.com/docs/flask_smorest/reload_api_docker_container/)
 
-- [How To Build and Deploy a Flask Application Using Docker on Ubuntu 20.04](How To Build and Deploy a Flask Application Using Docker on Ubuntu 20.04)
+- [How To Build and Deploy a Flask Application Using Docker on Ubuntu 20.04](https://www.digitalocean.com/community/tutorials/how-to-build-and-deploy-a-flask-application-using-docker-on-ubuntu-20-04)
+
+- [How To Build and Deploy a Flask Application Using Docker on Ubuntu 20.04](https://blog.cloudsigma.com/build-and-deploy-a-flask-application-with-docker-on-ubuntu-20-04/)
 
 - [How to Dockerize a Flask App](https://www.freecodecamp.org/news/how-to-dockerize-a-flask-app/)
