@@ -1,4 +1,7 @@
-from flask import Blueprint, render_template, request, flash
+from flask import Blueprint, render_template, request, flash, redirect, url_for
+from .models import User
+from werkzeug.security import generate_password_hash, check_password_hash
+
 
 auth = Blueprint("auth", __name__)
 
@@ -38,6 +41,15 @@ def register():
             flash("Passwords do not match.", category="danger")
         else:
             # add user to database
+            new_user = User(
+                email=email,
+                first_name=first_name,
+                last_name=last_name,
+                password=generate_password_hash(password, method="sha256"),
+            )
+            db.session.add(new_user)
+            db.session.commit()
+
             flash("User created successfully.", category="success")
 
         return render_template("register.html", email=email, password=password)
