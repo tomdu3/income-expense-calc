@@ -3,7 +3,6 @@ from flask_login import UserMixin
 from sqlalchemy.sql import func
 
 
-
 class User(db.Model, UserMixin):
     """
     User Model
@@ -14,8 +13,8 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150))
     last_name = db.Column(db.String(150))
-    created_at = db.Column(db.DateTime(timezone=True), default=func.now)
-    updated_at = db.Column(db.DateTime(timezone=True), onupdate=func.now)
+    created_at = db.Column(db.DateTime(timezone=True), default=func.now())
+    updated_at = db.Column(db.DateTime(timezone=True), onupdate=func.now())
     transactions = db.relationship("Transaction")
 
     def __init__(self, email, password, first_name, last_name):
@@ -42,7 +41,6 @@ class Transaction(db.Model):
     status = db.Column(db.String(150))
     created_at = db.Column(db.DateTime(timezone=True), default=func.now())
     updated_at = db.Column(db.DateTime(timezone=True), onupdate=func.now())
-
 
     # def __init__(
     #     self, user_id, amount, date, description, transaction_type, category, status
