@@ -2,21 +2,43 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for
 from . import db
 from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from flask_login import login_user, logout_user, current_user, login_required
 
 auth = Blueprint("auth", __name__)
 
 
 @auth.route("/login", methods=["GET", "POST"])
 def login():
-    data = request.form
-    print(data)
-    return render_template("login.html", text="Testing", username="tom", boolean=False)
+    if request.method == "POST":
+        try:
+            email = request.form.get("email").strip()
+            password = request.form.get("password").strip()
+            user = User.query.filter_by(email=email).first()
+            if user is not None and check_password_hash(user.password, password):
+                flash("Logged in successfully.", category="success")
+                login_user(user, remember=True)
+                return redirect(url_for("views.home"))
+            else:
+                flash("Invalid email or password.", category="danger")
+
+                return render_template("login.html", email=email, password=password)
+        except Exception as e:
+            print(e)
+            flash("Invalid email or password.", category="danger")
+    else:
+        # check is the user is logged in
+        if current_user.is_authenticated:
+            flash("You are already logged in.", category="danger")
+            return redirect(url_for("views.home"))
+
+    return render_template("login.html")
 
 
 @auth.route("/logout")
+@login_required
 def logout():
-    return "<p>logout</p>"  # TODO - this will be replaced with a logout function
+    logout_user()
+    return redirect(url_for("auth.login"))
 
 
 @auth.route("/register", methods=["GET", "POST"])
@@ -50,7 +72,7 @@ def register():
             )
             db.session.add(new_user)
             db.session.commit()
-
+            login_user(user=new_user, remember=True)
             flash("User created successfully.", category="success")
             redirect(url_for("views.home"))
 
