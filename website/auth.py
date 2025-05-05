@@ -74,7 +74,7 @@ def register():
             db.session.commit()
             login_user(user=new_user, remember=True)
             flash("User created successfully.", category="success")
-            redirect(url_for("views.home"))
+            return redirect(url_for("views.home"))
 
         return render_template("register.html", email=email, password=password)
 
